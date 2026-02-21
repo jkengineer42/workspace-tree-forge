@@ -9,11 +9,9 @@ const SidebarLayout = () => {
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         <div className="flex-1 flex flex-col">
-          <header className="h-14 flex items-center border-b border-border px-8">
-            <SidebarTrigger />
-            <div className="ml-4">
-              <MaterLogo />
-            </div>
+          <header className="flex items-center px-8 py-6">
+            <SidebarTrigger className="mr-4" />
+            <MaterLogo />
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <Outlet />
