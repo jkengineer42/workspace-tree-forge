@@ -2,15 +2,13 @@ import { useState, useMemo } from "react";
 import MaterLogo from "@/components/MaterLogo";
 import ScrollColumn from "@/components/ScrollColumn";
 
-const FIELDS = ["Medicine", "Architecture", "Mechanics", "Geology", "Aerospace", "Automotive"];
+const FIELDS = ["Medicine", "Architecture", "Mechanics", "Aerospace"];
 
 const SPECIALTIES: Record<string, string[]> = {
-  Medicine: ["Odontology", "Dental", "Pediatrics", "Orthopedics", "Cardiovascular"],
-  Architecture: ["Urban Design", "Interior", "Landscape", "Structural", "Sustainable"],
-  Mechanics: ["Thermodynamics", "Fluid Dynamics", "Robotics", "Materials", "Vibrations"],
-  Geology: ["Seismology", "Mineralogy", "Petrology", "Hydrology", "Volcanology"],
-  Aerospace: ["Propulsion", "Avionics", "Aerodynamics", "Orbital", "Composites"],
-  Automotive: ["Powertrain", "Chassis", "Electronics", "Safety", "Aerodynamics"],
+  Medicine: ["Odontology", "Pediatrics", "Orthopedics", "Cardiovascular"],
+  Architecture: ["Urban Design", "Interior", "Landscape", "Structural"],
+  Mechanics: ["Thermodynamics", "Fluid Dynamics", "Robotics", "Materials"],
+  Aerospace: ["Propulsion", "Avionics", "Aerodynamics", "Orbital"],
 };
 
 const OPTIMIZATIONS = [

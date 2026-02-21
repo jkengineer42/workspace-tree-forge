@@ -15,7 +15,7 @@ const MaterLogo = () => (
       />
     </svg>
     <span className="font-mono text-lg font-medium tracking-tight text-foreground">
-      Mater
+      Materia
     </span>
   </div>
 );
