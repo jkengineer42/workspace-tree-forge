@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 const MaterLogo = () => (
-  <div className="flex items-center gap-2.5">
+  <Link to="/" className="flex items-center gap-2.5 no-underline">
     {/* Tree icon */}
     <svg
       width="28"
@@ -17,7 +19,7 @@ const MaterLogo = () => (
     <span className="font-mono text-lg font-medium tracking-tight text-foreground">
       Materia
     </span>
-  </div>
+  </Link>
 );
 
 export default MaterLogo;
