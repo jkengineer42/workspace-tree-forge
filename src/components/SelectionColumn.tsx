@@ -8,7 +8,7 @@ interface SelectionColumnProps {
 const SelectionColumn = ({ title, items, selectedIndex, onSelect }: SelectionColumnProps) => {
   return (
     <div className="flex flex-col items-center gap-2 flex-1 min-w-0 py-4">
-      <span className="font-serif text-sm tracking-wide text-foreground/80 mb-3">
+      <span className="font-serif text-base tracking-wide text-foreground mb-3">
         {title}
       </span>
       <div className="flex flex-col items-center gap-1 w-full">
