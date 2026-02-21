@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import SidebarLayout from "./layouts/SidebarLayout";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
+import Materials from "./pages/Materials";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route element={<SidebarLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/materials" element={<Materials />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
