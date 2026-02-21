@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import MaterLogo from "@/components/MaterLogo";
 import SelectionColumn from "@/components/SelectionColumn";
+import AnimatedChatBox from "@/components/AnimatedChatBox";
 
 const FIELDS = ["Medicine", "Architecture", "Mechanics", "Aerospace"];
 
@@ -21,7 +21,6 @@ const OPTIMIZATIONS = [
 
 const Index = () => {
   const [fieldIndex, setFieldIndex] = useState(0);
-  const navigate = useNavigate();
   const [specialtyIndex, setSpecialtyIndex] = useState(0);
   const [optIndex, setOptIndex] = useState(0);
 
@@ -80,13 +79,8 @@ const Index = () => {
           />
         </div>
 
-        {/* CTA */}
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="px-10 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm tracking-wide hover:bg-forest-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0"
-        >
-          Start Browsing
-        </button>
+        {/* Animated Chat Box */}
+        <AnimatedChatBox field={FIELDS[fieldIndex]} />
       </main>
     </div>
   );
