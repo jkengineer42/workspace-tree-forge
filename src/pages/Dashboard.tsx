@@ -1,7 +1,7 @@
 const Dashboard = () => {
   return (
     <div>
-      <h1 className="font-serif text-3xl text-foreground mb-2">Hello 👋</h1>
+      <h1 className="font-serif text-3xl text-foreground mb-2">Hello </h1>
       <p className="text-muted-foreground mb-8">Welcome to the Materia Portal</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -31,10 +31,7 @@ const Dashboard = () => {
             gradient: "from-sage to-forest",
           },
         ].map((card) => (
-          <div
-            key={card.title}
-            className="rounded-xl border border-border bg-card overflow-hidden flex flex-col"
-          >
+          <div key={card.title} className="rounded-xl border border-border bg-card overflow-hidden flex flex-col">
             <div className={`h-32 bg-gradient-to-br ${card.gradient} opacity-80`} />
             <div className="p-4 flex flex-col flex-1">
               <h3 className="font-semibold text-foreground mb-1">{card.title}</h3>
