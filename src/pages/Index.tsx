@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import MaterLogo from "@/components/MaterLogo";
-import ScrollColumn from "@/components/ScrollColumn";
+import SelectionColumn from "@/components/SelectionColumn";
 
 const FIELDS = ["Medicine", "Architecture", "Mechanics", "Aerospace"];
 
@@ -28,6 +28,11 @@ const Index = () => {
     [fieldIndex]
   );
 
+  const handleFieldSelect = (index: number) => {
+    setFieldIndex(index);
+    setSpecialtyIndex(0);
+  };
+
   return (
     <div className="relative min-h-screen flex flex-col bg-background overflow-hidden">
       {/* Sage gradient blur */}
@@ -49,23 +54,23 @@ const Index = () => {
           </h1>
         </div>
 
-        {/* Scroll columns */}
+        {/* Selection columns */}
         <div className="w-full max-w-2xl mx-auto flex gap-1 sm:gap-4 bg-card/60 backdrop-blur-sm rounded-2xl border border-border p-4 sm:p-6 shadow-sm mb-10">
-          <ScrollColumn
+          <SelectionColumn
             title="Field"
             items={FIELDS}
             selectedIndex={fieldIndex}
-            onSelect={setFieldIndex}
+            onSelect={handleFieldSelect}
           />
-          <div className="w-px bg-border self-stretch my-8" />
-          <ScrollColumn
+          <div className="w-px bg-border self-stretch my-4" />
+          <SelectionColumn
             title="Specialty"
             items={currentSpecialties}
             selectedIndex={specialtyIndex}
             onSelect={setSpecialtyIndex}
           />
-          <div className="w-px bg-border self-stretch my-8" />
-          <ScrollColumn
+          <div className="w-px bg-border self-stretch my-4" />
+          <SelectionColumn
             title="Optimization"
             items={OPTIMIZATIONS}
             selectedIndex={optIndex}
