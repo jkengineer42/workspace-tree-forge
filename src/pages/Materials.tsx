@@ -1,57 +1,84 @@
-import { useState, lazy, Suspense } from "react";
+import { useState } from "react";
 
-const MaterialScene = lazy(() => import("@/components/materials3d/MaterialScene"));
-
-type Category = "Metals" | "Polymers" | "Ceramics" | "Biomaterials" | "Emerging";
+type Category = "Metal" | "Polymere" | "Ceramique" | "Biosource" | "Composite";
 
 interface Material {
   name: string;
   category: Category;
   co2: number;
-  biodegradable: boolean;
 }
 
 const materials: Material[] = [
-  { name: "Titanium Ti-6Al-4V", category: "Metals", co2: 12, biodegradable: false },
-  { name: "Stainless Steel 316L", category: "Metals", co2: 8, biodegradable: false },
-  { name: "Cobalt-Chrome", category: "Metals", co2: 18, biodegradable: false },
-  { name: "Magnesium AZ31", category: "Metals", co2: 6, biodegradable: true },
-  { name: "Nitinol NiTi", category: "Metals", co2: 14, biodegradable: false },
-  { name: "PEEK", category: "Polymers", co2: 7, biodegradable: false },
-  { name: "UHMWPE", category: "Polymers", co2: 4, biodegradable: false },
-  { name: "PMMA Bone Cement", category: "Polymers", co2: 5, biodegradable: false },
-  { name: "Silicone Elastomer", category: "Polymers", co2: 3, biodegradable: false },
-  { name: "PLA Medical Grade", category: "Polymers", co2: 2, biodegradable: true },
-  { name: "Alumina Al2O3", category: "Ceramics", co2: 11, biodegradable: false },
-  { name: "Zirconia ZrO2", category: "Ceramics", co2: 13, biodegradable: false },
-  { name: "Hydroxyapatite", category: "Ceramics", co2: 4, biodegradable: true },
-  { name: "Tricalcium Phosphate", category: "Ceramics", co2: 3, biodegradable: true },
-  { name: "Bioglass 45S5", category: "Ceramics", co2: 9, biodegradable: true },
-  { name: "Collagen Type I", category: "Biomaterials", co2: 1, biodegradable: true },
-  { name: "Chitosan", category: "Biomaterials", co2: 2, biodegradable: true },
-  { name: "Hyaluronic Acid", category: "Biomaterials", co2: 1, biodegradable: true },
-  { name: "Silk Fibroin", category: "Biomaterials", co2: 2, biodegradable: true },
-  { name: "Alginate Hydrogel", category: "Biomaterials", co2: 1, biodegradable: true },
-  { name: "Graphene Oxide", category: "Emerging", co2: 16, biodegradable: false },
-  { name: "Carbon Nanotube Composite", category: "Emerging", co2: 20, biodegradable: false },
-  { name: "Shape Memory Polymer", category: "Emerging", co2: 8, biodegradable: false },
-  { name: "Bioprinted Scaffold", category: "Emerging", co2: 3, biodegradable: true },
-  { name: "Self-Healing Hydrogel", category: "Emerging", co2: 4, biodegradable: true },
+  { name: "Titane Grade 5", category: "Metal", co2: 42 },
+  { name: "Titane Grade 23", category: "Metal", co2: 44 },
+  { name: "Titane Poreux 3D", category: "Metal", co2: 68 },
+  { name: "Acier 316L", category: "Metal", co2: 5.1 },
+  { name: "Cobalt-Chrome", category: "Metal", co2: 51 },
+  { name: "Tantale Poreux", category: "Metal", co2: 152 },
+  { name: "Nitinol", category: "Metal", co2: 91 },
+  { name: "Magnesium Bio", category: "Metal", co2: 18.5 },
+  { name: "PEEK Standard", category: "Polymere", co2: 9.8 },
+  { name: "UHMWPE Vit-E", category: "Polymere", co2: 3.4 },
+  { name: "PLA Biosource", category: "Polymere", co2: 2.2 },
+  { name: "PLGA Resorbable", category: "Polymere", co2: 3.0 },
+  { name: "PMMA Chirurgical", category: "Polymere", co2: 4.5 },
+  { name: "Polyurethane Bio", category: "Polymere", co2: 5.5 },
+  { name: "ePTFE Gore-Tex", category: "Polymere", co2: 9.1 },
+  { name: "Silicone Medical", category: "Polymere", co2: 6.2 },
+  { name: "Hydroxyapatite", category: "Ceramique", co2: 3.1 },
+  { name: "Alumine BIOLOX", category: "Ceramique", co2: 8.5 },
+  { name: "Alumine-Zircone BIOLOX delta", category: "Ceramique", co2: 10.5 },
+  { name: "Zircone Y-TZP", category: "Ceramique", co2: 12.8 },
+  { name: "PEEK Fibres Carbone", category: "Composite", co2: 29 },
+  { name: "Beta-TCP", category: "Ceramique", co2: 3.0 },
+  { name: "Bioglass 45S5", category: "Ceramique", co2: 5.0 },
+  { name: "Os Allogene", category: "Biosource", co2: 1.0 },
+  { name: "Collagene Bovin", category: "Biosource", co2: 4.0 },
+  { name: "Acide Hyaluronique", category: "Biosource", co2: 1.5 },
+  { name: "Xenogreffe Porcine", category: "Biosource", co2: 3.2 },
+  { name: "Pyrocarbone", category: "Composite", co2: 25 },
+  { name: "Scaffold PCL", category: "Composite", co2: 3.3 },
+  { name: "Dacron Polyester", category: "Composite", co2: 5.8 },
 ];
 
-const categoryStyles: Record<Category, { bg: string; text: string; gradient: string; icon: string }> = {
-  Metals: { bg: "bg-blue-50", text: "text-blue-700", gradient: "from-slate-300 via-blue-400 to-slate-400", icon: "M" },
-  Polymers: { bg: "bg-teal-50", text: "text-teal-700", gradient: "from-teal-300 via-teal-200 to-emerald-100", icon: "P" },
-  Ceramics: { bg: "bg-amber-50", text: "text-amber-800", gradient: "from-amber-200 via-yellow-100 to-amber-100", icon: "C" },
-  Biomaterials: { bg: "bg-green-50", text: "text-green-700", gradient: "from-green-300 via-emerald-200 to-green-100", icon: "B" },
-  Emerging: { bg: "bg-purple-50", text: "text-purple-700", gradient: "from-purple-400 via-indigo-300 to-blue-900", icon: "E" },
+const categoryStyles: Record<Category, { pill: string; gradient: string; shapeColor: string }> = {
+  Metal: {
+    pill: "bg-slate-100 text-slate-700",
+    gradient: "from-slate-200 via-blue-100 to-slate-300",
+    shapeColor: "#8fa4b8",
+  },
+  Polymere: {
+    pill: "bg-teal-50 text-teal-700",
+    gradient: "from-teal-100 via-white to-teal-50",
+    shapeColor: "#5eead4",
+  },
+  Ceramique: {
+    pill: "bg-amber-50 text-amber-800",
+    gradient: "from-amber-50 via-orange-50 to-yellow-50",
+    shapeColor: "#d4a574",
+  },
+  Biosource: {
+    pill: "bg-green-50 text-green-700",
+    gradient: "from-green-100 via-emerald-50 to-green-50",
+    shapeColor: "#86efac",
+  },
+  Composite: {
+    pill: "bg-purple-50 text-purple-700",
+    gradient: "from-purple-200 via-indigo-100 to-slate-800",
+    shapeColor: "#a78bfa",
+  },
 };
 
-type Filter = "All" | Category | "Low CO2" | "Biodegradable";
-const filters: Filter[] = ["All", "Metals", "Polymers", "Ceramics", "Biomaterials", "Emerging", "Low CO2", "Biodegradable"];
+type Filter = "All" | Category;
+const filters: Filter[] = ["All", "Metal", "Polymere", "Ceramique", "Biosource", "Composite"];
 
 const CO2Badge = ({ co2 }: { co2: number }) => {
-  const color = co2 < 5 ? "bg-green-100 text-green-700" : co2 < 15 ? "bg-orange-100 text-orange-700" : "bg-red-100 text-red-700";
+  const color =
+    co2 < 5
+      ? "bg-green-100 text-green-700"
+      : co2 < 20
+        ? "bg-orange-100 text-orange-700"
+        : "bg-red-100 text-red-700";
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${color}`}>
       {co2} kg CO2
@@ -59,53 +86,120 @@ const CO2Badge = ({ co2 }: { co2: number }) => {
   );
 };
 
-/* Static preview shown when 3D is not active */
-const StaticPreview = ({ category }: { category: Category }) => {
-  const s = categoryStyles[category];
+const Shape3D = ({ category, hovered }: { category: Category; hovered: boolean }) => {
+  const style = categoryStyles[category];
+  const rotation = hovered ? "rotateY(25deg) rotateX(15deg)" : "rotateY(0deg) rotateX(0deg)";
+  const base = "transition-transform duration-500 ease-out";
+
+  if (category === "Metal") {
+    return (
+      <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${style.gradient} rounded-xl`}>
+        <div className={base} style={{ transform: rotation, perspective: 600, transformStyle: "preserve-3d" }}>
+          <div
+            style={{
+              width: 48,
+              height: 72,
+              background: "linear-gradient(135deg, #9bb0c4 0%, #6b8cad 50%, #4a6478 100%)",
+              borderRadius: 6,
+              boxShadow: "4px 6px 16px rgba(0,0,0,0.18), inset -2px -2px 6px rgba(0,0,0,0.1)",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+  if (category === "Polymere") {
+    return (
+      <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${style.gradient} rounded-xl`}>
+        <div className={base} style={{ transform: rotation, perspective: 600 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                style={{
+                  width: 72 - i * 10,
+                  height: 10,
+                  background: `linear-gradient(90deg, ${i === 1 ? "#5eead4" : "#99f6e4"}, ${i === 1 ? "#2dd4bf" : "#5eead4"})`,
+                  borderRadius: 5,
+                  opacity: i === 1 ? 1 : 0.6,
+                  boxShadow: "2px 3px 8px rgba(0,0,0,0.08)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (category === "Ceramique") {
+    return (
+      <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${style.gradient} rounded-xl`}>
+        <div className={base} style={{ transform: rotation, perspective: 600 }}>
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #fde68a 0%, #d4a574 60%, #b8860b 100%)",
+              boxShadow: "3px 5px 14px rgba(0,0,0,0.12), inset -3px -3px 8px rgba(0,0,0,0.06)",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+  if (category === "Biosource") {
+    return (
+      <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${style.gradient} rounded-xl`}>
+        <div className={base} style={{ transform: rotation, perspective: 600 }}>
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <path d="M8 32 Q20 12 32 32 Q44 52 56 32" fill="none" stroke="#86efac" strokeWidth="3" />
+            <path d="M8 40 Q20 22 32 40 Q44 58 56 40" fill="none" stroke="#4ade80" strokeWidth="2" opacity="0.6" />
+            <path d="M8 24 Q20 6 32 24 Q44 42 56 24" fill="none" stroke="#4ade80" strokeWidth="2" opacity="0.6" />
+          </svg>
+        </div>
+      </div>
+    );
+  }
+  // Composite
   return (
-    <div className={`w-full h-full rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center relative overflow-hidden`}>
-      {/* Decorative shapes per category */}
-      {category === "Metals" && (
-        <>
-          <div className="w-10 h-24 rounded-md bg-white/20 backdrop-blur-sm" style={{ boxShadow: 'inset -2px 0 8px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.08)' }} />
-          {[0,1,2,3,4].map(i => <div key={i} className="absolute w-12 h-[1.5px] bg-white/30" style={{ top: `${30 + i*10}%` }} />)}
-        </>
-      )}
-      {category === "Polymers" && (
-        <>
-          {[0,1,2].map(i => <div key={i} className="absolute rounded-lg bg-white/25 backdrop-blur-sm" style={{ width: `${70-i*15}%`, height: '14%', top: `${25+i*20}%`, left: `${15+i*5}%`, transform: `rotate(${-3+i*3}deg)` }} />)}
-        </>
-      )}
-      {category === "Ceramics" && (
-        <>
-          <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm" style={{ boxShadow: 'inset -3px -3px 10px rgba(0,0,0,0.05), 3px 3px 10px rgba(0,0,0,0.06)' }} />
-          <div className="absolute w-8 h-8 rotate-45 bg-white/20 top-6 right-8 rounded-sm" />
-        </>
-      )}
-      {category === "Biomaterials" && (
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 140 140">
-          <path d="M10 70 Q40 30 70 70 Q100 110 130 70" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="3" />
-          <path d="M10 85 Q40 50 70 85 Q100 120 130 85" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" />
-          <path d="M10 55 Q40 20 70 55 Q100 90 130 55" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" />
-        </svg>
-      )}
-      {category === "Emerging" && (
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 140 140">
-          {[[40,30],[80,25],[60,60],[30,80],[100,70],[55,100],[90,95]].map(([x,y],i) => (
-            <circle key={i} cx={x} cy={y} r="5" fill="rgba(255,255,255,0.5)" />
-          ))}
-          {[[40,30,80,25],[80,25,60,60],[40,30,60,60],[60,60,30,80],[60,60,100,70],[30,80,55,100],[100,70,90,95],[55,100,90,95]].map(([x1,y1,x2,y2],i) => (
-            <line key={`l${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-          ))}
-        </svg>
-      )}
+    <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${style.gradient} rounded-xl`}>
+      <div className={base} style={{ transform: rotation, perspective: 600 }}>
+        <div style={{ position: "relative", width: 56, height: 56 }}>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              background: "linear-gradient(135deg, #a78bfa, #7c3aed)",
+              borderRadius: 8,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              boxShadow: "3px 4px 12px rgba(0,0,0,0.15)",
+            }}
+          />
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              background: "linear-gradient(135deg, #c4b5fd, #8b5cf6)",
+              borderRadius: "50%",
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              boxShadow: "2px 3px 10px rgba(0,0,0,0.12)",
+              opacity: 0.85,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
 const MaterialCard = ({ material }: { material: Material }) => {
   const [hovered, setHovered] = useState(false);
-  const pill = categoryStyles[material.category];
+  const style = categoryStyles[material.category];
 
   return (
     <div
@@ -113,26 +207,22 @@ const MaterialCard = ({ material }: { material: Material }) => {
       onMouseLeave={() => setHovered(false)}
       className="bg-card rounded-2xl border border-border p-4 flex flex-col items-center gap-3 cursor-pointer transition-all duration-300"
       style={{
-        borderRadius: '16px',
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: hovered ? '0 12px 32px rgba(0,0,0,0.12)' : '0 1px 3px rgba(0,0,0,0.04)',
+        borderRadius: 16,
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 12px 32px rgba(0,0,0,0.12)"
+          : "0 1px 3px rgba(0,0,0,0.04)",
       }}
     >
-      {/* 3D / static preview */}
-      <div className="w-full aspect-square rounded-xl overflow-hidden relative" style={{ maxWidth: 180 }}>
-        {hovered ? (
-          <Suspense fallback={<StaticPreview category={material.category} />}>
-            <MaterialScene category={material.category} hovered={hovered} />
-          </Suspense>
-        ) : (
-          <StaticPreview category={material.category} />
-        )}
+      <div className="w-full aspect-square rounded-xl overflow-hidden" style={{ maxWidth: 180 }}>
+        <Shape3D category={material.category} hovered={hovered} />
       </div>
-
       <div className="flex flex-col items-center gap-2 w-full">
-        <span className="font-semibold text-sm text-foreground text-center leading-tight">{material.name}</span>
+        <span className="font-semibold text-sm text-foreground text-center leading-tight">
+          {material.name}
+        </span>
         <div className="flex items-center gap-2 flex-wrap justify-center">
-          <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${pill.bg} ${pill.text}`}>
+          <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${style.pill}`}>
             {material.category}
           </span>
           <CO2Badge co2={material.co2} />
@@ -147,8 +237,6 @@ const Materials = () => {
 
   const filtered = materials.filter((m) => {
     if (activeFilter === "All") return true;
-    if (activeFilter === "Low CO2") return m.co2 < 5;
-    if (activeFilter === "Biodegradable") return m.biodegradable;
     return m.category === activeFilter;
   });
 
