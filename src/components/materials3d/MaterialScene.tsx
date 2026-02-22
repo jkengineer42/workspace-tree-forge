@@ -4,10 +4,10 @@ import { Suspense } from "react";
 import { MetalMesh } from "./MetalMesh";
 import { PolymerMesh } from "./PolymerMesh";
 import { CeramicMesh } from "./CeramicMesh";
-import { BiomaterialMesh } from "./BiomaterialMesh";
-import { EmergingMesh } from "./EmergingMesh";
+import { BiosourceMesh } from "./BiosourceMesh";
+import { CompositeMesh } from "./CompositeMesh";
 
-type Category = "Metals" | "Polymers" | "Ceramics" | "Biomaterials" | "Emerging";
+type Category = "Metal" | "Polymere" | "Ceramique" | "Biosource" | "Composite";
 
 interface MaterialSceneProps {
   category: Category;
@@ -16,11 +16,11 @@ interface MaterialSceneProps {
 
 const MeshByCategory = ({ category, hovered }: { category: Category; hovered: boolean }) => {
   switch (category) {
-    case "Metals": return <MetalMesh hovered={hovered} />;
-    case "Polymers": return <PolymerMesh hovered={hovered} />;
-    case "Ceramics": return <CeramicMesh hovered={hovered} />;
-    case "Biomaterials": return <BiomaterialMesh hovered={hovered} />;
-    case "Emerging": return <EmergingMesh hovered={hovered} />;
+    case "Metal": return <MetalMesh hovered={hovered} />;
+    case "Polymere": return <PolymerMesh hovered={hovered} />;
+    case "Ceramique": return <CeramicMesh hovered={hovered} />;
+    case "Biosource": return <BiosourceMesh hovered={hovered} />;
+    case "Composite": return <CompositeMesh hovered={hovered} />;
   }
 };
 
