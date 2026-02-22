@@ -9,6 +9,8 @@ import SidebarLayout from "./layouts/SidebarLayout";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import Materials from "./pages/Materials";
+import Analyze from "./pages/Analyze";
+import History from "./pages/History";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,8 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/materials" element={<Materials />} />
+            <Route path="/analyze" element={<Analyze />} />
+            <Route path="/history" element={<History />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

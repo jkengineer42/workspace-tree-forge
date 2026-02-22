@@ -1,4 +1,4 @@
-import { Settings, MessageSquare, LayoutDashboard, Package, HelpCircle, LogIn, BookOpen, MessageCircle } from "lucide-react";
+import { Settings, MessageSquare, LayoutDashboard, Package, HelpCircle, LogIn, BookOpen, MessageCircle, Microscope, Clock } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import MaterLogo from "@/components/MaterLogo";
 import {
@@ -18,6 +18,8 @@ const mainItems = [
   { title: "Chat", url: "/chat", icon: MessageSquare },
   { title: "Dashboard", url: "/overview", icon: LayoutDashboard },
   { title: "Materials", url: "/materials", icon: Package },
+  { title: "Analyze", url: "/analyze", icon: Microscope },
+  { title: "History", url: "/history", icon: Clock },
 ];
 
 export function AppSidebar() {
