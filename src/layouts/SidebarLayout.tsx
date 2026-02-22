@@ -10,8 +10,7 @@ const SidebarLayout = () => {
         <AppSidebar />
         <div className="flex-1 flex flex-col">
           <header className="flex items-center px-8 py-6">
-            <SidebarTrigger className="mr-4" />
-            <MaterLogo />
+            <SidebarTrigger />
           </header>
           <main className="flex-1 p-6 overflow-auto">
             <Outlet />
